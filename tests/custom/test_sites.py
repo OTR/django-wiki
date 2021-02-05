@@ -32,7 +32,7 @@ class WikiCustomSite(sites.WikiSite):
 
 
 class WikiCustomConfig(WikiConfig):
-    default_site = "tests.core.test_sites.WikiCustomSite"
+    default_site = "tests.custom.test_sites.WikiCustomSite"
 
 
 urlpatterns = [
@@ -54,14 +54,14 @@ urlpatterns = [
         "mptt",
         "sekizai",
         "sorl.thumbnail",
-        "tests.core.test_sites.WikiCustomConfig",
+        "tests.custom.test_sites.WikiCustomConfig",
         "wiki.plugins.attachments.apps.AttachmentsConfig",
         "wiki.plugins.notifications.apps.NotificationsConfig",
         "wiki.plugins.images.apps.ImagesConfig",
         "wiki.plugins.macros.apps.MacrosConfig",
         "wiki.plugins.globalhistory.apps.GlobalHistoryConfig",
     ],
-    ROOT_URLCONF="tests.core.test_sites",
+    ROOT_URLCONF="tests.custom.test_sites",
 )
 class CustomWikiSiteTest(TestCase):
     def setUp(self):

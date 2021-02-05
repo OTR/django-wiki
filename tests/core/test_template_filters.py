@@ -363,18 +363,6 @@ class IsLocked(TemplateTestCase):
         self.assertIn("True", output)
 
 
-class PluginEnabled(TemplateTestCase):
-
-    template = """
-        {% load wiki_tags %}
-        {% if "wiki.plugins.attachments"|plugin_enabled %}It is enabled{% endif %}
-    """
-
-    def test_true(self):
-        output = self.render({})
-        self.assertIn("It is enabled", output)
-
-
 class WikiSettings(TemplateTestCase):
 
     template = """

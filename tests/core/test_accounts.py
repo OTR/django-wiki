@@ -13,7 +13,7 @@ from ..base import SUPERUSER1_PASSWORD
 from ..base import SUPERUSER1_USERNAME
 from ..base import TestBase
 from ..base import wiki_override_settings
-from ..testdata.models import CustomUser
+
 
 
 class AccountUpdateTest(
@@ -106,19 +106,3 @@ class LoginTestViews(RequireRootArticleMixin, TestBase):
         )
         self.assertIs(self.superuser1.is_authenticated, True)
         self.assertEqual(auth.get_user(self.client), self.superuser1)
-
-
-class SignupViewTests(RequireRootArticleMixin, TestBase):
-    @wiki_override_settings(ACCOUNT_HANDLING=True, ACCOUNT_SIGNUP_ALLOWED=True)
-    def test_signup(self):
-        response = self.client.post(
-            wiki_settings.SIGNUP_URL,
-            data={
-                "password1": "wiki",
-                "password2": "wiki",
-                "username": "wiki",
-                "email": "wiki@wiki.com",
-            },
-        )
-        self.assertIs(CustomUser.objects.filter(email="wiki@wiki.com").exists(), True)
-        self.assertRedirects(response, reverse("wiki:login"))

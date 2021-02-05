@@ -179,42 +179,6 @@ class WikiRenderTest(TemplateTestCase):
         # Additional check
         self.render({"article": article, "pc": None})
 
-    def test_called_with_preview_content_and_article_have_current_revision(self):
-
-        article = Article.objects.create()
-        ArticleRevision.objects.create(
-            article=article, title="Test title", content="Some beauty test text"
-        )
-
-        content = (
-            """This is a normal paragraph\n"""
-            """\n"""
-            """Headline\n"""
-            """========\n"""
-        )
-
-        expected = (
-            """(?s).*<p>This is a normal paragraph</p>\n"""
-            """<h1 id="wiki-toc-headline">Headline"""
-            """.*</h1>.*"""
-        )
-
-        # monkey patch
-        from wiki.core.plugins import registry
-
-        registry._cache = {"spam": "eggs"}
-
-        output = wiki_render({}, article, preview_content=content)
-        self.assertCountEqual(self.keys, output)
-        self.assertEqual(output["article"], article)
-        self.assertRegexpMatches(output["content"], expected)
-        self.assertIs(output["preview"], True)
-        self.assertEqual(output["plugins"], {"spam": "eggs"})
-        self.assertEqual(output["STATIC_URL"], django_settings.STATIC_URL)
-        self.assertEqual(output["CACHE_TIMEOUT"], settings.CACHE_TIMEOUT)
-
-        output = self.render({"article": article, "pc": content})
-        self.assertRegexpMatches(output, expected)
 
     def test_called_with_preview_content_and_article_dont_have_current_revision(self):
 

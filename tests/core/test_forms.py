@@ -3,8 +3,8 @@ from django.utils.translation import gettext
 from wiki.forms import DeleteForm
 from wiki.forms import UserCreationForm
 
-from tests.base import DjangoClientTestBase
-from tests.base import RequireRootArticleMixin
+from ..base import DjangoClientTestBase
+from ..base import RequireRootArticleMixin
 
 
 class DeleteFormTests(RequireRootArticleMixin, DjangoClientTestBase):
